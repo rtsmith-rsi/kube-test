@@ -20,7 +20,7 @@ spec:
         claimName: task-pv-claim      
       containers:
       - name: spring
-        image: turok2step/docker_spring:0.1.1
+        image: turok2step/docker_spring:0.1.2
       - name: mongo
         image: mongo:latest
         volumeMounts:
