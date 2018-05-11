@@ -25,7 +25,7 @@ spec:
   ports:
     - port: 80
       name: web
-  clusterIP: none
+  clusterIP:
   selector:
     app: spring
 ---
