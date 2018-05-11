@@ -25,7 +25,7 @@ spec:
   ports:
     - port: 80
       name: web
-  clusterIP:
+  clusterIP: None
   selector:
     app: spring
 ---
@@ -53,6 +53,9 @@ spec:
         ports:
         - containerPort: 80
           name: web
+        volumeMounts:
+        - mountPath: "/user/share/nginx/"
+          name: pv-mongo
       - name: spring
         image: turok2step/docker_spring:0.1.2
       - name: mongo
