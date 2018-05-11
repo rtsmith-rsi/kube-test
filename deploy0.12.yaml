@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-deployment
+  labels:
+    app: spring
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring
+  template:
+    metadata:
+      labels:
+        app: spring
+    spec:
+      volumes:
+      - name: task-pv-storage
+        persistentVolumeClaim:
+        claimName: claim1
+      containers:
+      - name: spring
+        image: turok2step/docker_spring:0.1.2
+      - name: mongo
+        image: mongo:latest
+        volumeMounts:
+        - mountPath: "/usr/share/mongo/"
+          name: task-pv-storage
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: claim1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: fast
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "spring-deployment-service"
+  namespace: "default"
+  labels:
+    app: "spring"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: "spring"
+  type: "LoadBalancer"
+  loadBalancerIP: ""
