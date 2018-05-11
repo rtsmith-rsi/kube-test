@@ -47,6 +47,7 @@ spec:
         app: spring
     spec:
       terminationGracePeriodSeconds: 10
+      updateStrategy: RollingUpdate
       containers:
       - name: nginx
         image: k8s.gcr.io/nginx-slim:0.8
