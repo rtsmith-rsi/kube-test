@@ -20,7 +20,7 @@ spec:
         claimName: claim1
       containers:
       - name: spring
-        image: turok2step/docker_spring:0.1.2
+        image: turok2step/docker_spring:0.1.3
       - name: mongo
         image: mongo:latest
         volumeMounts:
