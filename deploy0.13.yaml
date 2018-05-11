@@ -14,10 +14,6 @@ spec:
       labels:
         app: spring
     spec:
-      volumes:
-      - name: task-pv-storage
-        persistentVolumeClaim:
-        claimName: claim1
       containers:
       - name: spring
         image: turok2step/docker_spring:0.1.3
@@ -25,19 +21,16 @@ spec:
         image: mongo:latest
         volumeMounts:
         - mountPath: "/usr/share/mongo/"
-          name: task-pv-storage
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: claim1
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: fast
-  resources:
-    requests:
-      storage: 1Gi
+          name: pv-mongo
+  volumeClaimTemplates:
+    - metadata:
+        name: pv-mongo
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "fast"
+        resources:
+          requests:
+            storage: 1Gi
 ---
 apiVersion: "v1"
 kind: "Service"
