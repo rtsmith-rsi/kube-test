@@ -1,21 +1,10 @@
-apiVersion: apps/v1
-kind: StatefulSet
 metadata:
   name: spring-deployment
   labels:
     app: spring
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: spring
-  serviceName: nginx
   template:
-    metadata:
-      labels:
-        app: spring
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: spring
         image: turok2step/docker_spring:0.1.3
