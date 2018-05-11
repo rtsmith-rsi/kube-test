@@ -1,8 +1,3 @@
-apiVersion: apps/v1
-metadata:
-  name: spring-deployment
-  labels:
-    app: spring
 spec:
   template:
     spec:
